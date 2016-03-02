@@ -6,6 +6,9 @@
 //  Copyright © 2016. Radiant Tap. All rights reserved.
 //
 
+@import PureLayout;
+#import "RTCommon.h"
+
 #import "RTViewController.h"
 
 @interface RTViewController ()
