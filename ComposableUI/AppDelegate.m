@@ -7,7 +7,9 @@
 //
 
 #import "RTCommon.h"
+
 #import "AppDelegate.h"
+#import "RTViewController.h"
 
 @interface AppDelegate ()
 
@@ -17,8 +19,11 @@
 
 - (BOOL)application:(UIApplication *)application willFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
 	DDLogVerbose(@"App will finish lanching");
-
 	self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+
+	RTViewController *vc = [RTViewController new];
+	UINavigationController *nc = [[UINavigationController alloc] initWithRootViewController:vc];
+	self.window.rootViewController = nc;
 
 	return YES;
 }
