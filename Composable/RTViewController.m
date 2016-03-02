@@ -50,11 +50,6 @@
 	return self;
 }
 
-- (void)dealloc {
-
-	[[NSNotificationCenter defaultCenter] removeObserver:self];
-}
-
 #pragma mark View hierarchy
 
 - (void)loadView {
@@ -101,12 +96,6 @@
 	[super viewWillAppear:animated];
 
 }
-
-- (void)viewWillDisappear:(BOOL)animated {
-	[super viewWillDisappear:animated];
-
-}
-
 
 #pragma mark - CollectionView Data Source
 
