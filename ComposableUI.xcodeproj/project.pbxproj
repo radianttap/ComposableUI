@@ -14,6 +14,9 @@
 		D0BD14E61C86FB6C005B5E50 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D0BD14E41C86FB6C005B5E50 /* LaunchScreen.storyboard */; };
 		D0BD14F11C86FC17005B5E50 /* RTCommon.m in Sources */ = {isa = PBXBuildFile; fileRef = D0BD14F01C86FC17005B5E50 /* RTCommon.m */; };
 		D0BD14F51C870058005B5E50 /* RTViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D0BD14F41C870058005B5E50 /* RTViewController.m */; };
+		D0BD14F81C8703B5005B5E50 /* RTBlockLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = D0BD14F71C8703B5005B5E50 /* RTBlockLayout.m */; };
+		D0BD14FB1C870507005B5E50 /* RTBlockCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D0BD14FA1C870507005B5E50 /* RTBlockCell.m */; };
+		D0BD14FD1C870522005B5E50 /* RTBlockCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D0BD14FC1C870522005B5E50 /* RTBlockCell.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -29,6 +32,11 @@
 		D0BD14F01C86FC17005B5E50 /* RTCommon.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RTCommon.m; path = Common/RTCommon.m; sourceTree = "<group>"; };
 		D0BD14F31C870058005B5E50 /* RTViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RTViewController.h; path = Composable/RTViewController.h; sourceTree = "<group>"; };
 		D0BD14F41C870058005B5E50 /* RTViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RTViewController.m; path = Composable/RTViewController.m; sourceTree = "<group>"; };
+		D0BD14F61C8703B5005B5E50 /* RTBlockLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RTBlockLayout.h; path = Composable/RTBlockLayout.h; sourceTree = "<group>"; };
+		D0BD14F71C8703B5005B5E50 /* RTBlockLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RTBlockLayout.m; path = Composable/RTBlockLayout.m; sourceTree = "<group>"; };
+		D0BD14F91C870507005B5E50 /* RTBlockCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RTBlockCell.h; path = Composable/RTBlockCell.h; sourceTree = "<group>"; };
+		D0BD14FA1C870507005B5E50 /* RTBlockCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RTBlockCell.m; path = Composable/RTBlockCell.m; sourceTree = "<group>"; };
+		D0BD14FC1C870522005B5E50 /* RTBlockCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = RTBlockCell.xib; path = Composable/RTBlockCell.xib; sourceTree = "<group>"; };
 		D2DBDF5DCF053B3D1622E290 /* Pods-ComposableUI.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ComposableUI.release.xcconfig"; path = "Pods/Target Support Files/Pods-ComposableUI/Pods-ComposableUI.release.xcconfig"; sourceTree = "<group>"; };
 		E20C6AB1AF3195787987EC26 /* Pods_ComposableUI.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ComposableUI.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -118,6 +126,11 @@
 			children = (
 				D0BD14F31C870058005B5E50 /* RTViewController.h */,
 				D0BD14F41C870058005B5E50 /* RTViewController.m */,
+				D0BD14F61C8703B5005B5E50 /* RTBlockLayout.h */,
+				D0BD14F71C8703B5005B5E50 /* RTBlockLayout.m */,
+				D0BD14F91C870507005B5E50 /* RTBlockCell.h */,
+				D0BD14FA1C870507005B5E50 /* RTBlockCell.m */,
+				D0BD14FC1C870522005B5E50 /* RTBlockCell.xib */,
 			);
 			name = Composable;
 			sourceTree = "<group>";
@@ -185,6 +198,7 @@
 			files = (
 				D0BD14E61C86FB6C005B5E50 /* LaunchScreen.storyboard in Resources */,
 				D0BD14E31C86FB6C005B5E50 /* Assets.xcassets in Resources */,
+				D0BD14FD1C870522005B5E50 /* RTBlockCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -244,8 +258,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				D0BD14F11C86FC17005B5E50 /* RTCommon.m in Sources */,
+				D0BD14FB1C870507005B5E50 /* RTBlockCell.m in Sources */,
 				D0BD14DB1C86FB6C005B5E50 /* AppDelegate.m in Sources */,
 				D0BD14F51C870058005B5E50 /* RTViewController.m in Sources */,
+				D0BD14F81C8703B5005B5E50 /* RTBlockLayout.m in Sources */,
 				D0BD14D81C86FB6C005B5E50 /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
