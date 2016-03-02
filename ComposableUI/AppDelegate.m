@@ -6,6 +6,7 @@
 //  Copyright © 2016. Radiant Tap. All rights reserved.
 //
 
+#import "RTCommon.h"
 #import "AppDelegate.h"
 
 @interface AppDelegate ()
@@ -14,9 +15,18 @@
 
 @implementation AppDelegate
 
+- (BOOL)application:(UIApplication *)application willFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+	DDLogVerbose(@"App will finish lanching");
+
+	self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+
+	return YES;
+}
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-	// Override point for customization after application launch.
+	DDLogVerbose(@"App did finish lanching");
+
+	[self.window makeKeyAndVisible];
 	return YES;
 }
 
