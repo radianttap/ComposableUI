@@ -59,9 +59,6 @@
 			children = (
 				D0BD14D91C86FB6C005B5E50 /* AppDelegate.h */,
 				D0BD14DA1C86FB6C005B5E50 /* AppDelegate.m */,
-				D0BD14E21C86FB6C005B5E50 /* Assets.xcassets */,
-				D0BD14E41C86FB6C005B5E50 /* LaunchScreen.storyboard */,
-				D0BD14E71C86FB6C005B5E50 /* Info.plist */,
 				D0BD14D61C86FB6C005B5E50 /* Supporting Files */,
 			);
 			path = ComposableUI;
@@ -70,6 +67,9 @@
 		D0BD14D61C86FB6C005B5E50 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				D0BD14E21C86FB6C005B5E50 /* Assets.xcassets */,
+				D0BD14E41C86FB6C005B5E50 /* LaunchScreen.storyboard */,
+				D0BD14E71C86FB6C005B5E50 /* Info.plist */,
 				D0BD14D71C86FB6C005B5E50 /* main.m */,
 			);
 			name = "Supporting Files";
