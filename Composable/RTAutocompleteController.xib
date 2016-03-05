@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9532" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="RTAutocompleteController">
+            <connections>
+                <outlet property="collectionView" destination="YnY-Y7-BXa" id="rd9-G3-PiL"/>
+                <outlet property="searchContainer" destination="W1D-Ih-YFP" id="bpH-JQ-Mlo"/>
+                <outlet property="searchField" destination="KFv-2C-pGi" id="6Dw-17-mAL"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" verticalHuggingPriority="751" translatesAutoresizingMaskIntoConstraints="NO" id="W1D-Ih-YFP">
+                    <rect key="frame" x="8" y="8" width="359" height="36"/>
+                    <subviews>
+                        <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="KFv-2C-pGi">
+                            <rect key="frame" x="8" y="0.0" width="343" height="36"/>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="36" id="8zC-yX-Lj9"/>
+                            </constraints>
+                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
+                            <textInputTraits key="textInputTraits"/>
+                            <connections>
+                                <action selector="textFieldDidChangeValue:" destination="-1" eventType="editingChanged" id="Gpg-0z-lau"/>
+                                <outlet property="delegate" destination="-1" id="zMP-KF-LWt"/>
+                            </connections>
+                        </textField>
+                    </subviews>
+                    <color key="backgroundColor" white="1" alpha="0.2039695946" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstItem="KFv-2C-pGi" firstAttribute="top" secondItem="W1D-Ih-YFP" secondAttribute="top" id="35B-7C-Qeh"/>
+                        <constraint firstAttribute="bottom" secondItem="KFv-2C-pGi" secondAttribute="bottom" id="HUp-ZQ-1XH"/>
+                        <constraint firstAttribute="leadingMargin" secondItem="KFv-2C-pGi" secondAttribute="leading" id="Y6E-Nv-sM8"/>
+                        <constraint firstAttribute="trailingMargin" secondItem="KFv-2C-pGi" secondAttribute="trailing" id="qMb-jF-NN7"/>
+                    </constraints>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                            <integer key="value" value="4"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
+                </view>
+                <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="YnY-Y7-BXa">
+                    <rect key="frame" x="0.0" y="52" width="375" height="615"/>
+                    <color key="backgroundColor" red="0.25098040700000002" green="0.50196081400000003" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                    <collectionViewLayout key="collectionViewLayout" id="yZb-dg-b6b" customClass="RTBlockLayout"/>
+                    <connections>
+                        <outlet property="dataSource" destination="-1" id="ERU-vh-6u6"/>
+                        <outlet property="delegate" destination="-1" id="0Su-DM-KMh"/>
+                    </connections>
+                </collectionView>
+            </subviews>
+            <color key="backgroundColor" red="0.25098040700000002" green="0.50196081400000003" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+            <constraints>
+                <constraint firstAttribute="trailingMargin" secondItem="W1D-Ih-YFP" secondAttribute="trailing" id="AVt-Qo-J1f"/>
+                <constraint firstAttribute="bottom" secondItem="YnY-Y7-BXa" secondAttribute="bottom" priority="999" id="CmE-WX-aMW"/>
+                <constraint firstItem="W1D-Ih-YFP" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="topMargin" id="ad8-Os-VUs"/>
+                <constraint firstAttribute="trailing" secondItem="YnY-Y7-BXa" secondAttribute="trailing" priority="999" id="d5h-EN-pyy"/>
+                <constraint firstItem="YnY-Y7-BXa" firstAttribute="top" secondItem="W1D-Ih-YFP" secondAttribute="bottom" constant="8" id="my5-LY-TRG"/>
+                <constraint firstItem="W1D-Ih-YFP" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leadingMargin" id="yCa-2w-XqU"/>
+                <constraint firstItem="YnY-Y7-BXa" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="zV3-Wc-0dN"/>
+            </constraints>
+            <nil key="simulatedStatusBarMetrics"/>
+            <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
+            <point key="canvasLocation" x="370.5" y="386.5"/>
+        </view>
+    </objects>
+</document>

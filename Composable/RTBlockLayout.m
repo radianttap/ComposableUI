@@ -29,13 +29,13 @@
 - (void)commonInit {
 
 	self.itemSize = CGSizeMake(320, 44);
+	self.headerReferenceSize = CGSizeMake(320, 36);
 //	self.estimatedItemSize = CGSizeMake(320, 64);
 
 	self.scrollDirection = UICollectionViewScrollDirectionVertical;
 	self.sectionInset = UIEdgeInsetsZero;
 	self.minimumLineSpacing = 1;
 	self.minimumInteritemSpacing = 0;
-	self.headerReferenceSize = CGSizeZero;
 	self.footerReferenceSize = CGSizeZero;
 }
 

@@ -8,6 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		0FFBD93651B14E2C686F4085 /* Pods_ComposableUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E20C6AB1AF3195787987EC26 /* Pods_ComposableUI.framework */; };
+		D02B2D971C8AFC0A00682E0E /* RTAutocompleteController.m in Sources */ = {isa = PBXBuildFile; fileRef = D02B2D951C8AFC0A00682E0E /* RTAutocompleteController.m */; };
+		D02B2D981C8AFC0A00682E0E /* RTAutocompleteController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D02B2D961C8AFC0A00682E0E /* RTAutocompleteController.xib */; };
+		D02B2D9C1C8B0C0E00682E0E /* RTCompactHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = D02B2D9A1C8B0C0E00682E0E /* RTCompactHeader.m */; };
+		D02B2D9D1C8B0C0E00682E0E /* RTCompactHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = D02B2D9B1C8B0C0E00682E0E /* RTCompactHeader.xib */; };
 		D0BD14D81C86FB6C005B5E50 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = D0BD14D71C86FB6C005B5E50 /* main.m */; };
 		D0BD14DB1C86FB6C005B5E50 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = D0BD14DA1C86FB6C005B5E50 /* AppDelegate.m */; };
 		D0BD14E31C86FB6C005B5E50 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D0BD14E21C86FB6C005B5E50 /* Assets.xcassets */; };
@@ -21,6 +25,12 @@
 
 /* Begin PBXFileReference section */
 		8872239275A490052D37322E /* Pods-ComposableUI.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ComposableUI.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ComposableUI/Pods-ComposableUI.debug.xcconfig"; sourceTree = "<group>"; };
+		D02B2D941C8AFC0A00682E0E /* RTAutocompleteController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RTAutocompleteController.h; path = Composable/RTAutocompleteController.h; sourceTree = "<group>"; };
+		D02B2D951C8AFC0A00682E0E /* RTAutocompleteController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RTAutocompleteController.m; path = Composable/RTAutocompleteController.m; sourceTree = "<group>"; };
+		D02B2D961C8AFC0A00682E0E /* RTAutocompleteController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = RTAutocompleteController.xib; path = Composable/RTAutocompleteController.xib; sourceTree = "<group>"; };
+		D02B2D991C8B0C0E00682E0E /* RTCompactHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RTCompactHeader.h; path = Composable/RTCompactHeader.h; sourceTree = "<group>"; };
+		D02B2D9A1C8B0C0E00682E0E /* RTCompactHeader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RTCompactHeader.m; path = Composable/RTCompactHeader.m; sourceTree = "<group>"; };
+		D02B2D9B1C8B0C0E00682E0E /* RTCompactHeader.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = RTCompactHeader.xib; path = Composable/RTCompactHeader.xib; sourceTree = "<group>"; };
 		D0BD14D31C86FB6C005B5E50 /* ComposableUI.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ComposableUI.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D0BD14D71C86FB6C005B5E50 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		D0BD14D91C86FB6C005B5E50 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -131,6 +141,9 @@
 				D0BD14F91C870507005B5E50 /* RTBlockCell.h */,
 				D0BD14FA1C870507005B5E50 /* RTBlockCell.m */,
 				D0BD14FC1C870522005B5E50 /* RTBlockCell.xib */,
+				D02B2D991C8B0C0E00682E0E /* RTCompactHeader.h */,
+				D02B2D9A1C8B0C0E00682E0E /* RTCompactHeader.m */,
+				D02B2D9B1C8B0C0E00682E0E /* RTCompactHeader.xib */,
 				D0BD14FE1C870B15005B5E50 /* Part-Autocomplete */,
 			);
 			name = Composable;
@@ -139,6 +152,9 @@
 		D0BD14FE1C870B15005B5E50 /* Part-Autocomplete */ = {
 			isa = PBXGroup;
 			children = (
+				D02B2D941C8AFC0A00682E0E /* RTAutocompleteController.h */,
+				D02B2D951C8AFC0A00682E0E /* RTAutocompleteController.m */,
+				D02B2D961C8AFC0A00682E0E /* RTAutocompleteController.xib */,
 			);
 			name = "Part-Autocomplete";
 			sourceTree = "<group>";
@@ -205,6 +221,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				D0BD14E61C86FB6C005B5E50 /* LaunchScreen.storyboard in Resources */,
+				D02B2D9D1C8B0C0E00682E0E /* RTCompactHeader.xib in Resources */,
+				D02B2D981C8AFC0A00682E0E /* RTAutocompleteController.xib in Resources */,
 				D0BD14E31C86FB6C005B5E50 /* Assets.xcassets in Resources */,
 				D0BD14FD1C870522005B5E50 /* RTBlockCell.xib in Resources */,
 			);
@@ -267,7 +285,9 @@
 			files = (
 				D0BD14F11C86FC17005B5E50 /* RTCommon.m in Sources */,
 				D0BD14FB1C870507005B5E50 /* RTBlockCell.m in Sources */,
+				D02B2D9C1C8B0C0E00682E0E /* RTCompactHeader.m in Sources */,
 				D0BD14DB1C86FB6C005B5E50 /* AppDelegate.m in Sources */,
+				D02B2D971C8AFC0A00682E0E /* RTAutocompleteController.m in Sources */,
 				D0BD14F51C870058005B5E50 /* RTViewController.m in Sources */,
 				D0BD14F81C8703B5005B5E50 /* RTBlockLayout.m in Sources */,
 				D0BD14D81C86FB6C005B5E50 /* main.m in Sources */,

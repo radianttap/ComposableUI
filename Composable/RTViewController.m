@@ -58,6 +58,7 @@
 	//	collection view for main data set
 	{
 		RTBlockLayout *layout = [RTBlockLayout new];
+		layout.headerReferenceSize = CGSizeZero;
 
 		UICollectionView *collectionView = [[UICollectionView alloc] initWithFrame:CGRectZero collectionViewLayout:layout];
 		collectionView.translatesAutoresizingMaskIntoConstraints = NO;
