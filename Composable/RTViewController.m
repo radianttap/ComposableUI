@@ -13,10 +13,22 @@
 #import "RTBlockLayout.h"
 #import "RTBlockCell.h"
 
-@interface RTViewController () < UICollectionViewDataSource, UICollectionViewDelegateFlowLayout >	//	RTAutocompleteControllerDelegate, RTLocationControllerDelegate, RTFilterControllerDelegate, RTDateRangeControllerDelegate
+#import "RTAutocompleteController.h"
 
+@interface RTViewController () < UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, RTAutocompleteControllerDelegate >	//	RTLocationControllerDelegate, RTFilterControllerDelegate, RTDateRangeControllerDelegate
+
+@property (nonatomic, strong, nonnull) UIBarButtonItem *cancelButton;
 @property (nonatomic, strong, nonnull) UICollectionView *collectionView;
 @property (nonatomic, strong, nonnull) NSArray< NSString* > *mainDataSource;
+
+@property (nonatomic, getter=isLocalLayoutUpdateScheduled) BOOL localLayoutUpdateScheduled;
+
+@property (nonatomic, strong) UIView *autocompleteContainer;
+@property (nonatomic, strong, nonnull) NSLayoutConstraint *autocompletePanelHeightConstraint;
+@property (nonatomic, strong, nonnull) NSLayoutConstraint *autocompletePanelBottomConstraint;
+@property (nonatomic, strong) RTAutocompleteController *autocompleteController;
+@property (nonatomic, getter=isAutocompleteActivated) BOOL autocompleteActivated;
+
 
 @end
 
@@ -27,8 +39,10 @@
 	self = [super init];
 	if (!self) return nil;
 
-	self.automaticallyAdjustsScrollViewInsets = YES;
+	self.automaticallyAdjustsScrollViewInsets = NO;
 
+	_localLayoutUpdateScheduled = NO;
+	_autocompleteActivated = NO;
 	_mainDataSource = @[
 						@"Random",
 						@"words that",
@@ -70,10 +84,32 @@
 		self.collectionView = collectionView;
 	}
 
+	{	//	container for autocomplete panel
+		UIView *v = [UIView newAutoLayoutView];
+		v.clipsToBounds = YES;
+		[self.view addSubview:v];
+		self.autocompleteContainer = v;
+	}
+
+
 	//	## layout
 
+
+	//	AUTOCOMPLETE starts from filters edge and either shows...
+	[self.autocompleteContainer autoPinToTopLayoutGuideOfViewController:self withInset:0];
+	[self.autocompleteContainer autoPinEdgeToSuperviewEdge:ALEdgeLeading];
+	[self.autocompleteContainer autoPinEdgeToSuperviewEdge:ALEdgeTrailing];
+	//	1. just the text field (inactive state)
+	self.autocompletePanelHeightConstraint = [self.autocompleteContainer autoSetDimension:ALDimensionHeight toSize:52];
+	self.autocompletePanelHeightConstraint.active = YES;
+	//	2. both text field *and* results (active state)
+	self.autocompletePanelBottomConstraint = [self.autocompleteContainer autoPinToBottomLayoutGuideOfViewController:self withInset:0];
+	self.autocompletePanelBottomConstraint.active = NO;
+
+
+
 	//	main data set
-	[self.collectionView autoPinEdge:ALEdgeTop toEdge:ALEdgeTop ofView:self.view withOffset:0];
+	[self.collectionView autoPinEdge:ALEdgeTop toEdge:ALEdgeBottom ofView:self.autocompleteContainer withOffset:0];
 	//	set this as non-required constraints to avoid 0-height collection view
 	[NSLayoutConstraint autoSetPriority:UILayoutPriorityDefaultHigh forConstraints:^{
 		[self.collectionView autoPinEdgesToSuperviewEdgesWithInsets:UIEdgeInsetsZero excludingEdge:ALEdgeTop];
@@ -87,16 +123,56 @@
 
 	self.view.backgroundColor = [UIColor lightGrayColor];
 	self.collectionView.backgroundColor = [UIColor lightGrayColor];
+	{
+		UIBarButtonItem *btn = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:@selector(cancelSearch:)];
+		self.cancelButton = btn;
+	}
 
 	//	collection view setup
 	[self.collectionView registerNib:[RTBlockCell nib] forCellWithReuseIdentifier:[RTBlockCell reuseIdentifier]];
 
+	//	embed controllers
+	[self loadAutocompleteController];
 }
 
-- (void)viewWillAppear:(BOOL)animated {
-	[super viewWillAppear:animated];
+#pragma mark
+
+- (void)updateLocalLayout {
+
+	if (self.isLocalLayoutUpdateScheduled) return;
+	self.localLayoutUpdateScheduled = YES;
+
+	[UIView animateWithDuration:.3
+						  delay:.1
+						options:UIViewAnimationOptionCurveEaseOut
+					 animations:^{
+						 [self.view layoutIfNeeded];
+					 } completion:^(BOOL finished) {
+						 self.localLayoutUpdateScheduled = NO;
+					 }];
+}
+
+- (void)initiateSearch {
+
+	[self.collectionView reloadData];
+}
+
+- (void)cancelSearch:(id)sender {
+	//	cancel whatever text field is activated
+
+	if (self.isAutocompleteActivated) {
+		self.autocompleteActivated = NO;
+		self.navigationItem.rightBarButtonItem = nil;
+		[self.autocompleteController deactivate];
+		[self autocompleteControlerDidDeactivate:self.autocompleteController];
+	}
 
 }
+
+
+
+
+
 
 #pragma mark - CollectionView Data Source
 
@@ -105,7 +181,6 @@
 }
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-
 	NSInteger ret = self.mainDataSource.count;
 	return ret;
 }
@@ -126,8 +201,66 @@
 }
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(RTBlockLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
-
 	return CGSizeMake(collectionView.bounds.size.width, collectionViewLayout.itemSize.height);
+}
+
+
+
+
+
+
+#pragma mark - Autocomplete
+
+- (void)loadAutocompleteController {
+
+	RTAutocompleteController *vc = [RTAutocompleteController new];
+	vc.delegate = self;
+	[self addChildViewController:vc];
+	[self.autocompleteContainer addSubview:vc.view];
+	vc.view.translatesAutoresizingMaskIntoConstraints = NO;
+	[vc didMoveToParentViewController:self];
+	self.autocompleteController = vc;
+
+	self.autocompleteContainer.backgroundColor = vc.view.backgroundColor;
+
+	[NSLayoutConstraint autoSetPriority:UILayoutPriorityDefaultHigh forConstraints:^{
+		[vc.view autoPinEdgesToSuperviewEdges];
+	}];
+}
+
+- (void)autocompleteControlerDidActivate:(RTAutocompleteController *)controller {
+
+	self.autocompleteActivated = YES;
+	//	deactivate location search, if it's active
+//	[self locationSearchControllerDidDeactivate:self.locationController];
+
+	//	expand autocomplete
+	self.autocompletePanelHeightConstraint.active = NO;
+	self.autocompletePanelBottomConstraint.active = YES;
+//	[self updateLocalLayout];
+
+	self.navigationItem.rightBarButtonItem = self.cancelButton;
+}
+
+- (void)autocompleteControlerDidDeactivate:(RTAutocompleteController *)controller {
+
+	self.autocompleteActivated = NO;
+	//	collapse autocomplete
+	self.autocompletePanelBottomConstraint.active = NO;
+	self.autocompletePanelHeightConstraint.active = YES;
+	[self updateLocalLayout];
+
+	self.navigationItem.rightBarButtonItem = nil;
+}
+
+- (void)autocompleteControler:(RTAutocompleteController *)controller didSelectSearchString:(NSString *)searchString {
+
+	//	collapse autocomplete
+	[self autocompleteControlerDidDeactivate:controller];
+	self.autocompleteActivated = NO;
+
+	//	perform search
+	[self initiateSearch];
 }
 
 @end

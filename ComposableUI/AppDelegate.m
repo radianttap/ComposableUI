@@ -23,12 +23,12 @@
 	DDLogVerbose(@"App will finish lanching");
 	self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
 
-//	RTViewController *vc = [RTViewController new];
-//	UINavigationController *nc = [[UINavigationController alloc] initWithRootViewController:vc];
-//	self.window.rootViewController = nc;
+	RTViewController *vc = [RTViewController new];
+	UINavigationController *nc = [[UINavigationController alloc] initWithRootViewController:vc];
+	self.window.rootViewController = nc;
 
-	RTAutocompleteController *vc = [RTAutocompleteController new];
-	self.window.rootViewController = vc;
+//	RTAutocompleteController *vc = [RTAutocompleteController new];
+//	self.window.rootViewController = vc;
 
 	return YES;
 }

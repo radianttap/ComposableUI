@@ -17,6 +17,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, copy, nullable) NSString *autocompleteString;
 @property (nonatomic) CGFloat verticalSpace;
 
+- (void)deactivate;
+
 @end
 
 @protocol RTAutocompleteControllerDelegate <NSObject>
