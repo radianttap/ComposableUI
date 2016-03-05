@@ -36,7 +36,7 @@
 						@"go anywhere,",
 						@"But sure",
 						@"is nice to",
-						@"not have to screw with",
+						@"not have to mess with",
 						@"all of CoreData nuts & bolts.",
 						@"I mean...",
 						@"who loves to do that?",
@@ -113,6 +113,8 @@
 
 	//	get instance of cell
 	RTBlockCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:[RTBlockCell reuseIdentifier] forIndexPath:indexPath];
+	cell.captionLabel.textColor = [UIColor whiteColor];
+	cell.contentView.backgroundColor = [[UIColor blueColor] colorWithAlphaComponent:.3];
 
 	//	place to setup cell's label preferedWidth, if needed
 

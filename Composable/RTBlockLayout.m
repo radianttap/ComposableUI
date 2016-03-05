@@ -28,7 +28,7 @@
 
 - (void)commonInit {
 
-	self.itemSize = CGSizeMake(320, 54);
+	self.itemSize = CGSizeMake(320, 44);
 //	self.estimatedItemSize = CGSizeMake(320, 64);
 
 	self.scrollDirection = UICollectionViewScrollDirectionVertical;
