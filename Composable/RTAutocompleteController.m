@@ -238,7 +238,7 @@ typedef NS_ENUM(NSInteger, RTAutocompleteSection) {
 	//	get instance of cell
 	RTBlockCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:[RTBlockCell reuseIdentifier] forIndexPath:indexPath];
 	cell.captionLabel.textColor = [UIColor whiteColor];
-	cell.contentView.backgroundColor = [[UIColor blueColor] colorWithAlphaComponent:.3];
+	cell.contentView.backgroundColor = [[UIColor whiteColor] colorWithAlphaComponent:.17];
 
 	//	place to setup cell's label preferedWidth, if needed
 
