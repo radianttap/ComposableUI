@@ -1,0 +1,20 @@
+WWDC 2011 / Session 102 - Implementing UIViewController Containment (iOS 5, Jun 2011)
+https://developer.apple.com/videos/play/wwdc2011/102/
+
+objc.io Issue 1 - View Controller Containment (Jul 2013)
+https://www.objc.io/issues/1-view-controllers/containment-view-controller/
+
+NSCookbook: iOS Programming Recipe 28: View Controller Containment & Transitioning (Aug 2013)
+http://nscookbook.com/2013/08/ios-programming-recipe-28-view-controller-containment-transitioning/
+
+
+Main topics
+- allows creation of lightweight VCs which encapsulate single task
+- can mix and match controllers as you wish
+- interoperability is achieved using delegate pattern
+- UIKit handles all the heavy lifting
+- with `showViewController:` API from iOS 8, removes the last remaining hard glue (no more `pushViewController:`)
+- UIKit support for transitions from one view controller to another `transitionFromViewController:toViewController:duration:...`
+
+
+
