@@ -108,7 +108,7 @@
 
 
 
-	//	main data set
+	//	local results
 	[self.collectionView autoPinEdge:ALEdgeTop toEdge:ALEdgeBottom ofView:self.autocompleteContainer withOffset:0];
 	//	set this as non-required constraints to avoid 0-height collection view
 	[NSLayoutConstraint autoSetPriority:UILayoutPriorityDefaultHigh forConstraints:^{
