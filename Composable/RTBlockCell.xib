@@ -16,9 +16,9 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="751" verticalHuggingPriority="751" text="Nice jolly label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lK6-3g-A5Q">
-                        <rect key="frame" x="8" y="22" width="104" height="20"/>
+                        <rect key="frame" x="15" y="22" width="104" height="20"/>
                         <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
-                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
                 </subviews>
@@ -26,7 +26,7 @@
             </view>
             <constraints>
                 <constraint firstItem="lK6-3g-A5Q" firstAttribute="centerY" secondItem="r7S-90-GjH" secondAttribute="centerYWithinMargins" id="Hjy-vu-uC0"/>
-                <constraint firstItem="lK6-3g-A5Q" firstAttribute="leading" secondItem="r7S-90-GjH" secondAttribute="leadingMargin" id="RFK-Jp-Prp"/>
+                <constraint firstItem="lK6-3g-A5Q" firstAttribute="leading" secondItem="r7S-90-GjH" secondAttribute="leadingMargin" constant="7" id="RFK-Jp-Prp"/>
                 <constraint firstItem="lK6-3g-A5Q" firstAttribute="top" relation="greaterThanOrEqual" secondItem="r7S-90-GjH" secondAttribute="topMargin" id="a4P-WH-6wG"/>
                 <constraint firstAttribute="bottomMargin" relation="greaterThanOrEqual" secondItem="lK6-3g-A5Q" secondAttribute="bottom" id="lL5-DN-NeE"/>
                 <constraint firstAttribute="trailingMargin" relation="greaterThanOrEqual" secondItem="lK6-3g-A5Q" secondAttribute="trailing" id="sER-1f-oGI"/>
