@@ -134,6 +134,14 @@ typedef NS_ENUM(NSInteger, RTAutocompleteSection) {
 - (void)viewDidLoad {
 	[super viewDidLoad];
 
+	//	add loupe icon to the text field
+	UIImageView *iv = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 36, 18)];
+	iv.tintColor = [[UIColor whiteColor] colorWithAlphaComponent:.6];
+	iv.contentMode = UIViewContentModeScaleAspectFit;
+	iv.image = [UIImage imageNamed:@"loupe"];
+	self.searchField.leftView = iv;
+	self.searchField.leftViewMode = UITextFieldViewModeAlways;
+
 	self.searchField.text = self.autocompleteString;
 	[self.collectionView registerNib:[RTBlockCell nib] forCellWithReuseIdentifier:[RTBlockCell reuseIdentifier]];
 	[self.collectionView registerNib:[RTCompactHeader nib] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:[RTCompactHeader reuseIdentifier]];

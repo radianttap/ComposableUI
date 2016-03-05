@@ -19,10 +19,10 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <view contentMode="scaleToFill" verticalHuggingPriority="751" translatesAutoresizingMaskIntoConstraints="NO" id="W1D-Ih-YFP">
-                    <rect key="frame" x="8" y="8" width="359" height="36"/>
+                    <rect key="frame" x="8" y="16" width="359" height="36"/>
                     <subviews>
-                        <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="KFv-2C-pGi">
-                            <rect key="frame" x="8" y="0.0" width="343" height="36"/>
+                        <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Tap to search" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="KFv-2C-pGi">
+                            <rect key="frame" x="0.0" y="0.0" width="351" height="36"/>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="36" id="8zC-yX-Lj9"/>
@@ -40,17 +40,17 @@
                     <constraints>
                         <constraint firstItem="KFv-2C-pGi" firstAttribute="top" secondItem="W1D-Ih-YFP" secondAttribute="top" id="35B-7C-Qeh"/>
                         <constraint firstAttribute="bottom" secondItem="KFv-2C-pGi" secondAttribute="bottom" id="HUp-ZQ-1XH"/>
-                        <constraint firstAttribute="leadingMargin" secondItem="KFv-2C-pGi" secondAttribute="leading" id="Y6E-Nv-sM8"/>
+                        <constraint firstAttribute="leading" secondItem="KFv-2C-pGi" secondAttribute="leading" id="Y6E-Nv-sM8"/>
                         <constraint firstAttribute="trailingMargin" secondItem="KFv-2C-pGi" secondAttribute="trailing" id="qMb-jF-NN7"/>
                     </constraints>
                     <userDefinedRuntimeAttributes>
                         <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                            <integer key="value" value="4"/>
+                            <integer key="value" value="18"/>
                         </userDefinedRuntimeAttribute>
                     </userDefinedRuntimeAttributes>
                 </view>
                 <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="YnY-Y7-BXa">
-                    <rect key="frame" x="0.0" y="52" width="375" height="615"/>
+                    <rect key="frame" x="0.0" y="60" width="375" height="607"/>
                     <color key="backgroundColor" red="0.25098040700000002" green="0.50196081400000003" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                     <collectionViewLayout key="collectionViewLayout" id="yZb-dg-b6b" customClass="RTBlockLayout"/>
                     <connections>
@@ -63,7 +63,7 @@
             <constraints>
                 <constraint firstAttribute="trailingMargin" secondItem="W1D-Ih-YFP" secondAttribute="trailing" id="AVt-Qo-J1f"/>
                 <constraint firstAttribute="bottom" secondItem="YnY-Y7-BXa" secondAttribute="bottom" priority="999" id="CmE-WX-aMW"/>
-                <constraint firstItem="W1D-Ih-YFP" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="topMargin" id="ad8-Os-VUs"/>
+                <constraint firstItem="W1D-Ih-YFP" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="topMargin" constant="8" id="ad8-Os-VUs"/>
                 <constraint firstAttribute="trailing" secondItem="YnY-Y7-BXa" secondAttribute="trailing" priority="999" id="d5h-EN-pyy"/>
                 <constraint firstItem="YnY-Y7-BXa" firstAttribute="top" secondItem="W1D-Ih-YFP" secondAttribute="bottom" constant="8" id="my5-LY-TRG"/>
                 <constraint firstItem="W1D-Ih-YFP" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leadingMargin" id="yCa-2w-XqU"/>
