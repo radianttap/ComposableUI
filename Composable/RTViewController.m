@@ -44,14 +44,17 @@
 	_localLayoutUpdateScheduled = NO;
 	_autocompleteActivated = NO;
 	_mainDataSource = @[
-						@"Random",
-						@"words that",
+						@"Random cell text to act",
+						@"as some sort of results",
+						@"random words that",
 						@"don't really",
-						@"go anywhere,",
+						@"go anywhere.",
+						@"–––",
 						@"But sure",
 						@"is nice to",
 						@"not have to mess with",
 						@"all of CoreData nuts & bolts.",
+						@"–––",
 						@"I mean...",
 						@"who loves to do that?",
 						@"Xcode should have",
