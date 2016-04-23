@@ -44,8 +44,4 @@
 	return ( !CGSizeEqualToSize(self.collectionView.bounds.size, newBounds.size) );
 }
 
-//- (BOOL)shouldInvalidateLayoutForPreferredLayoutAttributes:(UICollectionViewLayoutAttributes *)preferredAttributes withOriginalAttributes:(UICollectionViewLayoutAttributes *)originalAttributes {
-//	return ( !CGRectEqualToRect(originalAttributes.frame, preferredAttributes.frame) );
-//}
-
 @end

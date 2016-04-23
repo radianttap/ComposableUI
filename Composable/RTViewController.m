@@ -124,14 +124,14 @@
 - (void)viewDidLoad {
 	[super viewDidLoad];
 
-	self.view.backgroundColor = [UIColor lightGrayColor];
-	self.collectionView.backgroundColor = [UIColor lightGrayColor];
+	self.view.backgroundColor = [UIColor orangeColor];
 	{
 		UIBarButtonItem *btn = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:@selector(cancelSearch:)];
 		self.cancelButton = btn;
 	}
 
 	//	collection view setup
+	self.collectionView.backgroundColor = self.view.backgroundColor;
 	[self.collectionView registerNib:[RTBlockCell nib] forCellWithReuseIdentifier:[RTBlockCell reuseIdentifier]];
 
 	//	embed controllers
@@ -145,7 +145,7 @@
 	if (self.isLocalLayoutUpdateScheduled) return;
 	self.localLayoutUpdateScheduled = YES;
 
-	[UIView animateWithDuration:.3
+	[UIView animateWithDuration:.4
 						  delay:.1
 						options:UIViewAnimationOptionCurveEaseOut
 					 animations:^{
@@ -193,7 +193,7 @@
 	//	get instance of cell
 	RTBlockCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:[RTBlockCell reuseIdentifier] forIndexPath:indexPath];
 	cell.captionLabel.textColor = [UIColor whiteColor];
-	cell.contentView.backgroundColor = [[UIColor blueColor] colorWithAlphaComponent:.3];
+	cell.contentView.backgroundColor = collectionView.backgroundColor;
 
 	//	place to setup cell's label preferedWidth, if needed
 
@@ -240,7 +240,7 @@
 	//	expand autocomplete
 	self.autocompletePanelHeightConstraint.active = NO;
 	self.autocompletePanelBottomConstraint.active = YES;
-//	[self updateLocalLayout];
+	[self updateLocalLayout];
 
 	self.navigationItem.rightBarButtonItem = self.cancelButton;
 }
