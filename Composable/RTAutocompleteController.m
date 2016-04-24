@@ -54,16 +54,7 @@ typedef NS_ENUM(NSInteger, RTAutocompleteSection) {
 						@"previous result 3",
 						@"more results..."
 						];
-	_searchResults = @[
-					 @"Assistance",
-					 @"Aspect Ratio",
-					 @"Asteroid",
-					 @"As...",
-					 @"As...",
-					 @"As...",
-					 @"As...",
-					 @"As...",
-					 ];
+	_searchResults = nil;
 
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleNotification:) name:UIKeyboardWillShowNotification object:nil];
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleNotification:) name:UIKeyboardWillHideNotification object:nil];
@@ -118,6 +109,19 @@ typedef NS_ENUM(NSInteger, RTAutocompleteSection) {
 	self.collectionView.contentInset = contentInset;
 }
 
+- (void)mockupSearchResults {
+	self.searchResults = @[
+						   @"Assistance",
+						   @"Aspect Ratio",
+						   @"Asteroid",
+						   @"As...",
+						   @"As...",
+						   @"As...",
+						   @"As...",
+						   @"As...",
+						   ];
+}
+
 #pragma mark
 
 /**
@@ -148,6 +152,8 @@ typedef NS_ENUM(NSInteger, RTAutocompleteSection) {
 }
 
 - (void)initiateAutocompleteFor:(NSString *)searchString {
+
+	[self mockupSearchResults];
 
 	self.autocompleteString = searchString;
 	[self.collectionView reloadData];
@@ -187,6 +193,7 @@ typedef NS_ENUM(NSInteger, RTAutocompleteSection) {
 
 	self.searchResults = nil;
 	self.autocompleteString = nil;
+
 	[self.collectionView.collectionViewLayout invalidateLayout];
 	[self.collectionView reloadData];
 
@@ -317,7 +324,7 @@ typedef NS_ENUM(NSInteger, RTAutocompleteSection) {
 
 			if (self.parentViewController) {
 				[self.delegate autocompleteControler:self didSelectSearchString:searchString];
-				[self.searchField resignFirstResponder];
+				[self deactivate];
 			}
 
 			break;
@@ -348,6 +355,7 @@ typedef NS_ENUM(NSInteger, RTAutocompleteSection) {
  */
 - (void)deactivate {
 	[self.searchField resignFirstResponder];
+	[self.delegate autocompleteControlerDidDeactivate:self];
 }
 
 - (void)search {

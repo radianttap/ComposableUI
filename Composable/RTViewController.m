@@ -167,7 +167,6 @@
 		self.autocompleteActivated = NO;
 		self.navigationItem.rightBarButtonItem = nil;
 		[self.autocompleteController deactivate];
-		[self autocompleteControlerDidDeactivate:self.autocompleteController];
 	}
 
 }
@@ -259,7 +258,6 @@
 - (void)autocompleteControler:(RTAutocompleteController *)controller didSelectSearchString:(NSString *)searchString {
 
 	//	collapse autocomplete
-	[self autocompleteControlerDidDeactivate:controller];
 	self.autocompleteActivated = NO;
 
 	//	perform search
