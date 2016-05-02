@@ -9,7 +9,7 @@
 #import "RTLocationController.h"
 @import MapKit;
 @import AddressBookUI;
-@import ContactsUI;
+//@import ContactsUI;
 
 #import "RTBlockLayout.h"
 #import "RTBlockCell.h"
@@ -51,6 +51,8 @@ typedef NS_ENUM(NSInteger, RTLocationDisplayMode) {
 @property (nonatomic, strong, nullable) NSArray< NSString * > *recentSearches;
 @property (nonatomic, strong, nullable) NSArray< MKPlacemark * > *searchResults;
 
+//@property (nonatomic, strong) CNPostalAddressFormatter *addressFormatter;
+
 @end
 
 @implementation RTLocationController
@@ -83,6 +85,9 @@ typedef NS_ENUM(NSInteger, RTLocationDisplayMode) {
 						@"Peet's"
 						];
 	_searchResults = nil;
+
+//	_addressFormatter = [CNPostalAddressFormatter new];
+//	_addressFormatter.style = CNPostalAddressFormatterStyleMailingAddress;
 
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleNotification:) name:UIKeyboardWillShowNotification object:nil];
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleNotification:) name:UIKeyboardWillHideNotification object:nil];
@@ -169,6 +174,9 @@ typedef NS_ENUM(NSInteger, RTLocationDisplayMode) {
 }
 
 - (NSString *)locationStringForPlacemark:(MKPlacemark *)placemark {
+	//	would love to use ContactsUI, but it's CNPostalAddress is useless on its own, for now
+//	return [[self.addressFormatter stringFromPostalAddress:?!??!] stringByReplacingOccurrencesOfString:@"\n" withString:@", "];
+	//	thus using AddressBookUI, deprecated be damn
 	return [ABCreateStringWithAddressDictionary(placemark.addressDictionary, NO) stringByReplacingOccurrencesOfString:@"\n" withString:@", "];
 }
 
