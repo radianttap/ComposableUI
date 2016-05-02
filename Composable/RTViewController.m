@@ -16,7 +16,7 @@
 #import "RTAutocompleteController.h"
 #import "RTLocationController.h"
 
-@interface RTViewController () < UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, RTAutocompleteControllerDelegate, RTLocationControllerDelegate >	//	, RTFilterControllerDelegate, RTDateRangeControllerDelegate
+@interface RTViewController () < UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, RTAutocompleteControllerDelegate, RTLocationControllerDelegate >
 
 @property (nonatomic, strong, nonnull) UIBarButtonItem *cancelButton;
 @property (nonatomic, strong, nonnull) UICollectionView *collectionView;
