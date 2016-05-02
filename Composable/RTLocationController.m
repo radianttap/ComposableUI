@@ -41,6 +41,7 @@ typedef NS_ENUM(NSInteger, RTLocationDisplayMode) {
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *activityView;
 
 @property (nonatomic, weak) IBOutlet NSLayoutConstraint *verticalSpacingConstraint;
+@property (nonatomic, weak) IBOutlet NSLayoutConstraint *locationButtonLeftEdgeConstraint;
 
 @property (nonatomic) MKCoordinateRegion region;
 @property (nonatomic, copy, nullable) NSString *autocompleteString;
@@ -74,7 +75,7 @@ typedef NS_ENUM(NSInteger, RTLocationDisplayMode) {
 	_currentLocation = nil;
 
 	//	San Francisco downtown, more or less
-	_region = MKCoordinateRegionMake(CLLocationCoordinate2DMake(37.777499, -122.419968), MKCoordinateSpanMake(1, 1));
+	_region = MKCoordinateRegionMake(CLLocationCoordinate2DMake(37.777499, -122.419968), MKCoordinateSpanMake(2, 2));
 
 	_recentSearches = @[
 						@"Starbucks",
@@ -144,9 +145,11 @@ typedef NS_ENUM(NSInteger, RTLocationDisplayMode) {
 	request.region = self.region;
 
 	[UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
+	[self.activityView startAnimating];
 	MKLocalSearch *localSearch = [[MKLocalSearch alloc] initWithRequest:request];
 	[localSearch startWithCompletionHandler:^(MKLocalSearchResponse *response, NSError *error){
 		[UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+		[self.activityView stopAnimating];
 		if (error != nil) {
 			return;
 		}
@@ -187,10 +190,11 @@ typedef NS_ENUM(NSInteger, RTLocationDisplayMode) {
 			locationAlpha = 1;
 			self.locationButton.tintColor = [[UIColor whiteColor] colorWithAlphaComponent:.5];
 			[self.locationButton setTitleColor:[[UIColor whiteColor] colorWithAlphaComponent:.5] forState:UIControlStateNormal];
-			self.locationLabel.text = NSLocalizedString(@"← filter per location", nil);
+			self.locationLabel.text = self.defaultLocationCaption;
 			self.locationLabel.textColor = [[UIColor whiteColor] colorWithAlphaComponent:.5];
 			self.locationLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleCaption1];
 			nearmeAlpha = 1;
+			self.locationButtonLeftEdgeConstraint.constant = 0;
 			break;
 		}
 		case RTLocationDisplayModeLocationKnown: {
@@ -201,6 +205,7 @@ typedef NS_ENUM(NSInteger, RTLocationDisplayMode) {
 			self.locationLabel.textColor = [UIColor whiteColor];
 			self.locationLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleBody];
 			nearmeAlpha = 1;
+			self.locationButtonLeftEdgeConstraint.constant = 0;
 			break;
 		}
 		case RTLocationDisplayModeTextFieldActive: {
@@ -208,6 +213,7 @@ typedef NS_ENUM(NSInteger, RTLocationDisplayMode) {
 			fieldAlpha = 1;
 			nearmeAlpha = 0;
 			locationAlpha = 0;
+			self.locationButtonLeftEdgeConstraint.constant = 12;
 			break;
 		}
 		default: {
@@ -224,7 +230,9 @@ typedef NS_ENUM(NSInteger, RTLocationDisplayMode) {
 						 self.locationLabel.alpha = locationAlpha;
 						 self.locationLabelButton.alpha = locationAlpha;
 						 [self.view layoutIfNeeded];
-					 } completion:nil];
+					 } completion:^(BOOL finished) {
+						 [self.collectionView reloadData];
+					 }];
 }
 
 #pragma mark
@@ -243,23 +251,16 @@ typedef NS_ENUM(NSInteger, RTLocationDisplayMode) {
 - (void)viewDidLoad {
 	[super viewDidLoad];
 
-//	//	add loupe icon to the text field
-//	UIImageView *iv = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 36, 18)];
-//	iv.tintColor = [[UIColor whiteColor] colorWithAlphaComponent:.6];
-//	iv.contentMode = UIViewContentModeScaleAspectFit;
-//	iv.image = [UIImage imageNamed:@"loupe"];
-//	self.searchField.leftView = iv;
-//	self.searchField.leftViewMode = UITextFieldViewModeAlways;
-
 	self.searchContainer.layer.borderColor = [UIColor whiteColor].CGColor;
 	self.searchField.tintColor = [UIColor whiteColor];
 	self.searchField.textColor = [UIColor whiteColor];
 	self.searchField.text = self.autocompleteString;
-	self.searchField.placeholder = self.defaultLocationCaption;
+	self.searchField.placeholder = NSLocalizedString(@"← tap again to cancel search ", nil);
 
 	[self.collectionView registerNib:[RTBlockCell nib] forCellWithReuseIdentifier:[RTBlockCell reuseIdentifier]];
 	[self.collectionView registerNib:[RTCompactHeader nib] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:[RTCompactHeader reuseIdentifier]];
 
+	self.displayMode = (self.currentLocationString) ? RTLocationDisplayModeLocationKnown : RTLocationDisplayModeDefault;
 	[self processDisplayModeAnimated:NO];
 }
 
@@ -276,8 +277,6 @@ typedef NS_ENUM(NSInteger, RTLocationDisplayMode) {
 
 	if (self.parentViewController) {
 		[self.delegate locationControllerDidActivate:self];
-	} else {
-		//		self.navigationItem.rightBarButtonItem = self.cancelButton;
 	}
 }
 
@@ -290,16 +289,16 @@ typedef NS_ENUM(NSInteger, RTLocationDisplayMode) {
 
 	if (self.parentViewController) {
 		if (self.autocompleteString.length == 0) {
-			[self.delegate locationControllerDidDeactivate:self];
 		} else {
 			if (self.currentLocation && self.currentLocationString) {
 				[self.delegate locationController:self didSelectString:self.currentLocationString location:self.currentLocation];
 			} else {
-				[self.delegate locationControllerDidDeactivate:self];
+
 			}
 		}
 	}
-	[textField resignFirstResponder];
+	self.displayMode = (self.currentLocationString) ? RTLocationDisplayModeLocationKnown : RTLocationDisplayModeDefault;
+	[self deactivate];
 	return YES;
 }
 
@@ -307,8 +306,6 @@ typedef NS_ENUM(NSInteger, RTLocationDisplayMode) {
 
 	self.searchResults = nil;
 	self.autocompleteString = nil;
-
-	[self.collectionView.collectionViewLayout invalidateLayout];
 	[self.collectionView reloadData];
 
 	return YES;
@@ -327,10 +324,12 @@ typedef NS_ENUM(NSInteger, RTLocationDisplayMode) {
 
 	switch ((RTLocationSection)section) {
 		case RTLocationSectionRecents: {
+			if (self.displayMode == RTLocationDisplayModeDefault) return 0;
 			return (self.autocompleteString.length == 0) ? self.recentSearches.count : 0;
 			break;
 		}
 		case RTLocationSectionResults: {
+			if (self.displayMode != RTLocationDisplayModeTextFieldActive) return 0;
 			return (self.autocompleteString.length == 0) ? 0 : self.searchResults.count;
 			break;
 		}
@@ -399,10 +398,12 @@ typedef NS_ENUM(NSInteger, RTLocationDisplayMode) {
 
 	switch ((RTLocationSection)section) {
 		case RTLocationSectionRecents: {
+			if (self.displayMode == RTLocationDisplayModeDefault) return CGSizeZero;
 			if (self.autocompleteString.length > 0 || self.recentSearches.count == 0) return CGSizeZero;
 			break;
 		}
 		case RTLocationSectionResults: {
+			if (self.displayMode != RTLocationDisplayModeTextFieldActive) return CGSizeZero;
 			if (self.autocompleteString.length == 0 || self.searchResults.count == 0) return CGSizeZero;
 			break;
 		}
@@ -424,6 +425,7 @@ typedef NS_ENUM(NSInteger, RTLocationDisplayMode) {
 			NSString *searchString = [self.recentSearches[indexPath.item] lowercaseString];
 			//	and re-use it
 			self.searchField.text = searchString;
+			self.displayMode = RTLocationDisplayModeTextFieldActive;
 			[self initiateAutocompleteFor:searchString];
 
 			break;
@@ -433,11 +435,13 @@ typedef NS_ENUM(NSInteger, RTLocationDisplayMode) {
 			MKPlacemark *placemark = self.searchResults[indexPath.item];
 			self.currentLocationString = [self locationStringForPlacemark:placemark];
 			self.currentLocation = placemark.location;
+			self.locationLabel.text = self.currentLocationString;
 
 			if (self.parentViewController) {
 				[self.delegate locationController:self didSelectString:self.currentLocationString location:self.currentLocation];
-				[self deactivate];
 			}
+			self.displayMode = RTLocationDisplayModeLocationKnown;
+			[self deactivate];
 
 			break;
 		}
@@ -454,6 +458,13 @@ typedef NS_ENUM(NSInteger, RTLocationDisplayMode) {
 
 	//	this should fetch current location and return that as location string
 	//	but before that, it should check for CLLocationManager permissions and display proper error message if not given
+	UIAlertController *ac = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"User Location", nil)
+																message:NSLocalizedString(@"Not done, see the comments in this method", nil)
+														 preferredStyle:UIAlertControllerStyleAlert];
+	[ac addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Okie", nil)
+										   style:UIAlertActionStyleDefault
+										 handler:nil]];
+	[self presentViewController:ac animated:YES completion:nil];
 }
 
 - (IBAction)locationTapped:(UIButton *)sender {

@@ -11,6 +11,7 @@
                 <outlet property="activityView" destination="mkf-4S-0V7" id="Yby-lD-9fD"/>
                 <outlet property="collectionView" destination="BIW-Jo-5xb" id="qIh-zp-MF2"/>
                 <outlet property="locationButton" destination="TVQ-iQ-Zox" id="yZG-ei-uP4"/>
+                <outlet property="locationButtonLeftEdgeConstraint" destination="7pV-FE-IvF" id="jm9-Jd-YHo"/>
                 <outlet property="locationLabel" destination="tY4-lc-fAJ" id="76P-J5-JBC"/>
                 <outlet property="locationLabelButton" destination="hQQ-BL-paz" id="7H8-gp-AUo"/>
                 <outlet property="nearmeButton" destination="vF5-PR-vDc" id="ivR-Hy-Z0l"/>
@@ -40,6 +41,7 @@
                                     <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                     <textInputTraits key="textInputTraits" autocorrectionType="yes" spellCheckingType="yes" returnKeyType="done"/>
                                     <connections>
+                                        <action selector="textFieldDidChangeValue:" destination="-1" eventType="editingChanged" id="3y2-wH-R4F"/>
                                         <outlet property="delegate" destination="-1" id="cEi-Bl-3NB"/>
                                     </connections>
                                 </textField>
@@ -61,18 +63,23 @@
                             </userDefinedRuntimeAttributes>
                         </view>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TVQ-iQ-Zox">
-                            <rect key="frame" x="0.0" y="11" width="44" height="30"/>
+                            <rect key="frame" x="0.0" y="11" width="22" height="30"/>
                             <constraints>
                                 <constraint firstAttribute="width" constant="44" id="NLV-5D-uUb"/>
                             </constraints>
                             <fontDescription key="fontDescription" style="UICTFontTextStyleCaption1"/>
                             <state key="normal" image="map_pins"/>
+                            <variation key="default">
+                                <mask key="constraints">
+                                    <exclude reference="NLV-5D-uUb"/>
+                                </mask>
+                            </variation>
                             <connections>
                                 <action selector="locationTapped:" destination="-1" eventType="touchUpInside" id="Pfg-Sp-fHa"/>
                             </connections>
                         </button>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="751" verticalHuggingPriority="751" text="← filter per location" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tY4-lc-fAJ">
-                            <rect key="frame" x="44" y="16" width="143" height="20"/>
+                            <rect key="frame" x="30" y="16" width="143" height="20"/>
                             <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                             <color key="textColor" red="1" green="1" blue="1" alpha="0.29848500844594594" colorSpace="calibratedRGB"/>
                             <nil key="highlightedColor"/>
@@ -84,12 +91,12 @@
                                 <action selector="nearMeTapped:" destination="-1" eventType="touchUpInside" id="LFS-Gx-1cO"/>
                             </connections>
                         </button>
-                        <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="mkf-4S-0V7">
-                            <rect key="frame" x="314" y="8" width="37" height="37"/>
+                        <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="white" translatesAutoresizingMaskIntoConstraints="NO" id="mkf-4S-0V7">
+                            <rect key="frame" x="331" y="16" width="20" height="20"/>
                             <color key="color" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         </activityIndicatorView>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hQQ-BL-paz">
-                            <rect key="frame" x="44" y="11" width="143" height="30"/>
+                            <rect key="frame" x="22" y="11" width="151" height="30"/>
                             <constraints>
                                 <constraint firstAttribute="width" constant="60" id="Dzz-it-DyV"/>
                             </constraints>
@@ -105,7 +112,7 @@
                     </subviews>
                     <constraints>
                         <constraint firstAttribute="trailing" secondItem="mkf-4S-0V7" secondAttribute="trailing" constant="8" id="2Z3-Yt-JuZ"/>
-                        <constraint firstItem="tY4-lc-fAJ" firstAttribute="leading" secondItem="TVQ-iQ-Zox" secondAttribute="trailing" id="6bP-NQ-Jze"/>
+                        <constraint firstItem="tY4-lc-fAJ" firstAttribute="leading" secondItem="TVQ-iQ-Zox" secondAttribute="trailing" constant="8" id="6bP-NQ-Jze"/>
                         <constraint firstItem="vF5-PR-vDc" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="tY4-lc-fAJ" secondAttribute="trailing" id="7Im-Zk-xj0"/>
                         <constraint firstItem="TVQ-iQ-Zox" firstAttribute="leading" secondItem="WJF-CB-Zt1" secondAttribute="leading" id="7pV-FE-IvF"/>
                         <constraint firstItem="78y-xC-nde" firstAttribute="top" secondItem="WJF-CB-Zt1" secondAttribute="topMargin" id="FOi-dv-r7j"/>
@@ -146,7 +153,7 @@
             </constraints>
             <nil key="simulatedStatusBarMetrics"/>
             <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
-            <point key="canvasLocation" x="-53.5" y="337.5"/>
+            <point key="canvasLocation" x="-198.5" y="284.5"/>
         </view>
     </objects>
     <resources>
