@@ -10,6 +10,7 @@
 
 @interface RTBlockCell : UICollectionViewCell
 
+//	hello there, compiler-friendly class methods 
 + (NSString *)reuseIdentifier;
 + (UINib *)nib;
 + (instancetype)nibInstance;
