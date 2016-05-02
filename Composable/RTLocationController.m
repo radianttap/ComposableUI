@@ -137,6 +137,8 @@ typedef NS_ENUM(NSInteger, RTLocationDisplayMode) {
 	self.collectionView.contentInset = contentInset;
 }
 
+#pragma mark - Search
+
 - (void)performLocalSearch {
 	if ( self.autocompleteString.length == 0 ) return;
 
@@ -146,8 +148,16 @@ typedef NS_ENUM(NSInteger, RTLocationDisplayMode) {
 
 	[UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
 	[self.activityView startAnimating];
+
+	NSString *originalSearch = [self.autocompleteString copy];
+
 	MKLocalSearch *localSearch = [[MKLocalSearch alloc] initWithRequest:request];
 	[localSearch startWithCompletionHandler:^(MKLocalSearchResponse *response, NSError *error){
+		if ( ![originalSearch isEqualToString:self.autocompleteString] ) {
+			//	if you type multiple characters, search requests can overlap each other
+			//	make sure to only display results for the last sent search string
+			return;
+		}
 		[UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
 		[self.activityView stopAnimating];
 		if (error != nil) {
@@ -235,7 +245,7 @@ typedef NS_ENUM(NSInteger, RTLocationDisplayMode) {
 					 }];
 }
 
-#pragma mark
+#pragma mark - View lifecycle
 
 /**
  *	When this controller is embedded, container will set required verticalSpace
@@ -245,8 +255,6 @@ typedef NS_ENUM(NSInteger, RTLocationDisplayMode) {
 	self.verticalSpacingConstraint.constant = self.verticalSpace;
 	[self.view setNeedsLayout];
 }
-
-#pragma mark - View lifecycle
 
 - (void)viewDidLoad {
 	[super viewDidLoad];
