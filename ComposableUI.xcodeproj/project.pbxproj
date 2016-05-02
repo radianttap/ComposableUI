@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		0FFBD93651B14E2C686F4085 /* Pods_ComposableUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E20C6AB1AF3195787987EC26 /* Pods_ComposableUI.framework */; };
+		D0292F131CD606DB00C94822 /* RTLocationController.m in Sources */ = {isa = PBXBuildFile; fileRef = D0292F111CD606DB00C94822 /* RTLocationController.m */; };
+		D0292F141CD606DB00C94822 /* RTLocationController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D0292F121CD606DB00C94822 /* RTLocationController.xib */; };
 		D02B2D971C8AFC0A00682E0E /* RTAutocompleteController.m in Sources */ = {isa = PBXBuildFile; fileRef = D02B2D951C8AFC0A00682E0E /* RTAutocompleteController.m */; };
 		D02B2D981C8AFC0A00682E0E /* RTAutocompleteController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D02B2D961C8AFC0A00682E0E /* RTAutocompleteController.xib */; };
 		D02B2D9C1C8B0C0E00682E0E /* RTCompactHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = D02B2D9A1C8B0C0E00682E0E /* RTCompactHeader.m */; };
@@ -25,6 +27,9 @@
 
 /* Begin PBXFileReference section */
 		8872239275A490052D37322E /* Pods-ComposableUI.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ComposableUI.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ComposableUI/Pods-ComposableUI.debug.xcconfig"; sourceTree = "<group>"; };
+		D0292F101CD606DB00C94822 /* RTLocationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RTLocationController.h; path = Composable/RTLocationController.h; sourceTree = "<group>"; };
+		D0292F111CD606DB00C94822 /* RTLocationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RTLocationController.m; path = Composable/RTLocationController.m; sourceTree = "<group>"; };
+		D0292F121CD606DB00C94822 /* RTLocationController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = RTLocationController.xib; path = Composable/RTLocationController.xib; sourceTree = "<group>"; };
 		D02B2D941C8AFC0A00682E0E /* RTAutocompleteController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RTAutocompleteController.h; path = Composable/RTAutocompleteController.h; sourceTree = "<group>"; };
 		D02B2D951C8AFC0A00682E0E /* RTAutocompleteController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RTAutocompleteController.m; path = Composable/RTAutocompleteController.m; sourceTree = "<group>"; };
 		D02B2D961C8AFC0A00682E0E /* RTAutocompleteController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = RTAutocompleteController.xib; path = Composable/RTAutocompleteController.xib; sourceTree = "<group>"; };
@@ -78,6 +83,16 @@
 				E20C6AB1AF3195787987EC26 /* Pods_ComposableUI.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		D0292F151CD606DF00C94822 /* Part-Location */ = {
+			isa = PBXGroup;
+			children = (
+				D0292F101CD606DB00C94822 /* RTLocationController.h */,
+				D0292F111CD606DB00C94822 /* RTLocationController.m */,
+				D0292F121CD606DB00C94822 /* RTLocationController.xib */,
+			);
+			name = "Part-Location";
 			sourceTree = "<group>";
 		};
 		D0BD14CA1C86FB6C005B5E50 = {
@@ -144,6 +159,7 @@
 				D02B2D991C8B0C0E00682E0E /* RTCompactHeader.h */,
 				D02B2D9A1C8B0C0E00682E0E /* RTCompactHeader.m */,
 				D02B2D9B1C8B0C0E00682E0E /* RTCompactHeader.xib */,
+				D0292F151CD606DF00C94822 /* Part-Location */,
 				D0BD14FE1C870B15005B5E50 /* Part-Autocomplete */,
 			);
 			name = Composable;
@@ -224,6 +240,7 @@
 				D02B2D9D1C8B0C0E00682E0E /* RTCompactHeader.xib in Resources */,
 				D02B2D981C8AFC0A00682E0E /* RTAutocompleteController.xib in Resources */,
 				D0BD14E31C86FB6C005B5E50 /* Assets.xcassets in Resources */,
+				D0292F141CD606DB00C94822 /* RTLocationController.xib in Resources */,
 				D0BD14FD1C870522005B5E50 /* RTBlockCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -288,6 +305,7 @@
 				D02B2D9C1C8B0C0E00682E0E /* RTCompactHeader.m in Sources */,
 				D0BD14DB1C86FB6C005B5E50 /* AppDelegate.m in Sources */,
 				D02B2D971C8AFC0A00682E0E /* RTAutocompleteController.m in Sources */,
+				D0292F131CD606DB00C94822 /* RTLocationController.m in Sources */,
 				D0BD14F51C870058005B5E50 /* RTViewController.m in Sources */,
 				D0BD14F81C8703B5005B5E50 /* RTBlockLayout.m in Sources */,
 				D0BD14D81C86FB6C005B5E50 /* main.m in Sources */,
