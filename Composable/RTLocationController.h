@@ -18,6 +18,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, weak) id< RTLocationControllerDelegate > delegate;
 @property (nonatomic) CGFloat verticalSpace;
 
+- (void)deactivate;
+
 @end
 
 

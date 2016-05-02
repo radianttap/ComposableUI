@@ -305,7 +305,6 @@ typedef NS_ENUM(NSInteger, RTLocationDisplayMode) {
 			}
 		}
 	}
-	self.displayMode = (self.currentLocationString) ? RTLocationDisplayModeLocationKnown : RTLocationDisplayModeDefault;
 	[self deactivate];
 	return YES;
 }
@@ -518,11 +517,14 @@ typedef NS_ENUM(NSInteger, RTLocationDisplayMode) {
  *	called from parent controller
  */
 - (void)deactivate {
+
 	[self.searchField resignFirstResponder];
+	self.displayMode = (self.currentLocationString) ? RTLocationDisplayModeLocationKnown : RTLocationDisplayModeDefault;
 	[self.delegate locationControllerDidDeactivate:self];
 }
 
 - (void)search {
+
 	[self initiateAutocompleteFor:self.autocompleteString];
 }
 

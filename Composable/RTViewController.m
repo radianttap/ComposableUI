@@ -14,8 +14,9 @@
 #import "RTBlockCell.h"
 
 #import "RTAutocompleteController.h"
+#import "RTLocationController.h"
 
-@interface RTViewController () < UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, RTAutocompleteControllerDelegate >	//	RTLocationControllerDelegate, RTFilterControllerDelegate, RTDateRangeControllerDelegate
+@interface RTViewController () < UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, RTAutocompleteControllerDelegate, RTLocationControllerDelegate >	//	, RTFilterControllerDelegate, RTDateRangeControllerDelegate
 
 @property (nonatomic, strong, nonnull) UIBarButtonItem *cancelButton;
 @property (nonatomic, strong, nonnull) UICollectionView *collectionView;
@@ -28,6 +29,12 @@
 @property (nonatomic, strong, nonnull) NSLayoutConstraint *autocompletePanelBottomConstraint;
 @property (nonatomic, strong) RTAutocompleteController *autocompleteController;
 @property (nonatomic, getter=isAutocompleteActivated) BOOL autocompleteActivated;
+
+@property (nonatomic, strong) UIView *locationContainer;
+@property (nonatomic, strong, nonnull) NSLayoutConstraint *locationPanelHeightConstraint;
+@property (nonatomic, strong, nonnull) NSLayoutConstraint *locationPanelBottomConstraint;
+@property (nonatomic, strong) RTLocationController *locationController;
+@property (nonatomic, getter=isLocationActivated) BOOL locationActivated;
 
 
 @end
@@ -43,6 +50,7 @@
 
 	_localLayoutUpdateScheduled = NO;
 	_autocompleteActivated = NO;
+	_locationActivated = NO;
 	_mainDataSource = @[
 						@"Random cell text to act",
 						@"as some sort of results",
@@ -93,6 +101,12 @@
 		[self.view addSubview:v];
 		self.autocompleteContainer = v;
 	}
+	{	//	container for location search panel
+		UIView *v = [UIView newAutoLayoutView];
+		v.clipsToBounds = YES;
+		[self.view addSubview:v];
+		self.locationContainer = v;
+	}
 
 
 	//	## layout
@@ -109,10 +123,21 @@
 	self.autocompletePanelBottomConstraint = [self.autocompleteContainer autoPinToBottomLayoutGuideOfViewController:self withInset:0];
 	self.autocompletePanelBottomConstraint.active = NO;
 
+	//	LOCATION starts from autocomplete edge and either shows...
+	[self.locationContainer autoPinEdge:ALEdgeTop toEdge:ALEdgeBottom ofView:self.autocompleteContainer];
+	[self.locationContainer autoPinEdgeToSuperviewEdge:ALEdgeLeading];
+	[self.locationContainer autoPinEdgeToSuperviewEdge:ALEdgeTrailing];
+	//	1. just the location label (inactive state)
+	self.locationPanelHeightConstraint = [self.locationContainer autoSetDimension:ALDimensionHeight toSize:52];
+	self.locationPanelHeightConstraint.active = YES;
+	//	2. both text field *and* results (active state)
+	self.locationPanelBottomConstraint = [self.locationContainer autoPinToBottomLayoutGuideOfViewController:self withInset:0];
+	self.locationPanelBottomConstraint.active = NO;
+
 
 
 	//	local results
-	[self.collectionView autoPinEdge:ALEdgeTop toEdge:ALEdgeBottom ofView:self.autocompleteContainer withOffset:0];
+	[self.collectionView autoPinEdge:ALEdgeTop toEdge:ALEdgeBottom ofView:self.locationContainer withOffset:0];
 	//	set this as non-required constraints to avoid 0-height collection view
 	[NSLayoutConstraint autoSetPriority:UILayoutPriorityDefaultHigh forConstraints:^{
 		[self.collectionView autoPinEdgesToSuperviewEdgesWithInsets:UIEdgeInsetsZero excludingEdge:ALEdgeTop];
@@ -136,6 +161,7 @@
 
 	//	embed controllers
 	[self loadAutocompleteController];
+	[self loadLocationController];
 }
 
 #pragma mark
@@ -167,6 +193,11 @@
 		self.autocompleteActivated = NO;
 		self.navigationItem.rightBarButtonItem = nil;
 		[self.autocompleteController deactivate];
+
+	} else if (self.isLocationActivated) {
+		self.locationActivated = NO;
+		self.navigationItem.rightBarButtonItem = nil;
+		[self.locationController deactivate];
 	}
 
 }
@@ -234,7 +265,7 @@
 
 	self.autocompleteActivated = YES;
 	//	deactivate location search, if it's active
-//	[self locationSearchControllerDidDeactivate:self.locationController];
+	[self.locationController deactivate];
 
 	//	expand autocomplete
 	self.autocompletePanelHeightConstraint.active = NO;
@@ -259,6 +290,59 @@
 
 	//	collapse autocomplete
 	self.autocompleteActivated = NO;
+
+	//	perform search
+	[self initiateSearch];
+}
+
+#pragma mark - Location
+
+- (void)loadLocationController {
+
+	RTLocationController *vc = [RTLocationController new];
+	vc.delegate = self;
+	[self addChildViewController:vc];
+	[self.locationContainer addSubview:vc.view];
+	vc.view.translatesAutoresizingMaskIntoConstraints = NO;
+	[vc didMoveToParentViewController:self];
+	self.locationController = vc;
+
+	self.locationContainer.backgroundColor = vc.view.backgroundColor;
+
+	[NSLayoutConstraint autoSetPriority:UILayoutPriorityDefaultHigh forConstraints:^{
+		[vc.view autoPinEdgesToSuperviewEdges];
+	}];
+}
+
+- (void)locationControllerDidActivate:(RTLocationController *)controller {
+
+	self.locationActivated = YES;
+	//	deactivate autocomplete search, if it's active
+	[self.autocompleteController deactivate];
+
+	//	expand location search
+	self.locationPanelHeightConstraint.active = NO;
+	self.locationPanelBottomConstraint.active = YES;
+	[self updateLocalLayout];
+
+	self.navigationItem.rightBarButtonItem = self.cancelButton;
+}
+
+- (void)locationControllerDidDeactivate:(RTLocationController *)controller {
+
+	self.locationActivated = NO;
+	//	collapse autocomplete
+	self.locationPanelBottomConstraint.active = NO;
+	self.locationPanelHeightConstraint.active = YES;
+	[self updateLocalLayout];
+
+	self.navigationItem.rightBarButtonItem = nil;
+}
+
+- (void)locationController:(RTLocationController *)controller didSelectString:(NSString *)locationString location:(CLLocation *)location {
+
+	//	collapse autocomplete
+	self.locationActivated = NO;
 
 	//	perform search
 	[self initiateSearch];
